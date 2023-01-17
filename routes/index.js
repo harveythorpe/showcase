@@ -12,7 +12,7 @@ router.get('/', async function(req, res, next) {
     let errors = [];
   
     await vd.validateEquipment(jsonArray, vdm.equipmentMap, errors);
-  console.log(errors)
+
     res.render('index', { errors });
   } catch (err){
     console.log(err)

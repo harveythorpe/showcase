@@ -1,5 +1,4 @@
 let lineError = require('../LineError');
-const { getKeyColums } = require('./helpers/getKeyColums');
 
 exports.validateUniqueKeys = function(equipmentList, errors) {
   let keyStrings = [];

@@ -10,16 +10,14 @@ exports.validateData = function(equipmentList, fieldMap, errors) {
       let attr = equipment[column];
 
       if (!vStr) {
-          continue;
+        continue;
       }
-
 
       let reg = new RegExp(vStr)
 
       // If required, validate it.
       // If the field is missing, don't validate it as we will already get an error
       if (item[1].isRequired && item[1].colIndex != null) {
-
         if (attr == '') {
           errors.push(new lineError(` ${column} column cannot contain empty values`, attr, counter));
         } else if (!reg.test(attr)) {

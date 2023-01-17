@@ -41,16 +41,21 @@
         <ol>
         <% errors.forEach(error => { %>
           <li>
-            <p class="bold">
+            <p class="bold mb-0 ml-2">
             <%= error.message %> 
             </p>
 
-            <p>
-              <samp><%= error.value %></samp> 
-
+            <p class="ml-2">
               <% if(error.line){ %>
-                <span class="gray bold">on <%= (error.message === 'Duplicate key value')? 'Lines' : 'Line';  %> <%= error.line %></span>
+                <span class="gray bold"><%= (error.message === 'Duplicate key value')? 'Lines' : 'Line';  %> 
+                  <%= error.line %><%= (error.value)? ':':'.'; %>&nbsp;
+                </span>
               <% } %>
+
+              <% if(error.value){ %>
+                "<samp><%= error.value %></samp>"
+              <% } %>
+               
             </p>
           </li>
         <% }) %>
