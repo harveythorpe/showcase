@@ -2,18 +2,16 @@ const express = require('express');
 const router = express.Router();
 
 const csv = require('csvtojson');
-const vd = require('../models/validation/validators');
-const vdm = require('../models/validation/validationMaps');
+const { validateEquipment } = require('../models/validation/validateEquipment');
+const { equipmentMap } = require('../models/validation/validationMaps');
 
 router.get('/', async function(req, res, next) {
   try {
     const jsonArray = await csv().fromFile('./equipment_list.csv');
-
-    let errors = [];
   
-    await vd.validateEquipment(jsonArray, vdm.equipmentMap, errors);
+    const { errorsByType } = await validateEquipment(jsonArray, equipmentMap);
 
-    res.render('index', { errors });
+    res.render('index', { errorsByType });
   } catch (err){
     console.log(err)
   }

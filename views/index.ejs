@@ -36,29 +36,41 @@
 
     <main>
       <div class="container">
-        <h4>Errors</h4>
+        <h3>Errors</h3>
+        <hr>
 
         <ol>
-        <% errors.forEach(error => { %>
-          <li>
-            <p class="bold mb-0 ml-2">
-            <%= error.message %> 
-            </p>
+          <% for (const [ errorType, errors ] of Object.entries(errorsByType)){ %>
 
-            <p class="ml-2">
-              <% if(error.line){ %>
-                <span class="gray bold"><%= (error.message === 'Duplicate key value')? 'Lines' : 'Line';  %> 
-                  <%= error.line %><%= (error.value)? ':':'.'; %>&nbsp;
-                </span>
-              <% } %>
+            <li>
+              <p class="bold mb-0 mt-3 ml-2">
+              <%= errorType %>: 
+              </p>
 
-              <% if(error.value){ %>
-                "<samp><%= error.value %></samp>"
-              <% } %>
-               
-            </p>
-          </li>
-        <% }) %>
+              <ul>
+
+              <% errors.forEach(error => { %>
+
+                <li class="ml-2">
+                  <% if(error.line){ %>
+                    <span class="gray bold"><%= (error.message === 'Duplicate key value')? 'Lines' : 'Line';  %> 
+                      <%= error.line %><%= (error.value)? ':':'.'; %>&nbsp;
+                    </span>
+                  <% } %>
+
+                  <% if(error.value){ %>
+                    "<samp><%= error.value %></samp>"
+                  <% } %>
+                  
+                </li>
+                
+              <% }) %>
+
+              </ul>
+
+            </li>
+
+          <% } %>
         </ol>
 
       </div>

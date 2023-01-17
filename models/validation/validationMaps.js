@@ -1,8 +1,7 @@
-let project = /\b\d{4}\b/;
-let notEmpty = /^.{1,255}$/;
-let testCodes = /((^|[, ])[A-Za-z]{1,3}[0-9]{4})+$/;
-
-let notEmptyNoAmp = /^[^&]{1,255}$/;
+const project = /\b\d{4}\b/;
+const notEmpty = /^.{1,255}$/;
+const testCodes = /((^|[, ])[A-Za-z]{1,3}[0-9]{4})+$/;
+const notEmptyNoAmp = /^[^&]{1,255}$/;
 
 const equipmentMap = new Map();
 
