@@ -1,30 +1,31 @@
-const csv = require('csvtojson');
-const vd = require('./validation/validators');
-const vdm = require('./validation/validationMaps');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
 
-const http = require('http');
+const indexRouter = require('./routes/index');
 
-const hostname = '127.0.0.1';
-const port = 3000;
+const app = express();
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
-  csv().fromFile('./equipment_list.csv').then(
-    async (jsonArray) => {
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
-        let errors = [];
+app.use('/', indexRouter);
 
-        await vd.validateEquipment(jsonArray, vdm.equipmentMap, errors);
-
-        res.end(JSON.stringify(errors))
-        console.log("Endpoint reached.");
-    } 
-  )
-
+app.use(function(req, res, next) {
+  next(createError(404));
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.use(function(err, req, res, next) {
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  const errStatus = (err.status || 500)
+  res.status(errStatus);
+  res.send(`HTTP Error ${errStatus}`);
 });
+
+module.exports = app;

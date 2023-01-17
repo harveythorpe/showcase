@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>RJE Global Software Engineer 2023 - Coding Task</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+      body{
+        padding-top: 50px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      footer{
+        margin-top: auto;
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+
+      .gray {
+        color: gray;
+      }
+    </style>
+  </head>
+
+  <body class="container">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+        <a class="navbar-brand" href="/">RJE Global Software Engineer 2023 - Coding Task</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        <h4>Errors</h4>
+
+        <ol>
+        <% errors.forEach(error => { %>
+          <li>
+            <p class="bold">
+            <%= error.message %> 
+            </p>
+
+            <p>
+              <samp><%= error.value %></samp> 
+
+              <% if(error.line){ %>
+                <span class="gray bold">on <%= (error.message === 'Duplicate key value')? 'Lines' : 'Line';  %> <%= error.line %></span>
+              <% } %>
+            </p>
+          </li>
+        <% }) %>
+        </ol>
+
+      </div>
+    </main>
+
+    <footer>
+      <p class="text-center text-muted">Submission from Harvey Thorpe</p>
+    </footer>
+  </body>
+</html>
