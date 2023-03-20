@@ -12,11 +12,18 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use(function(req, res, next) {
+  const ev = `Environment: ${app.get('env')}`
+  res.send(ev);
+})
+
 app.use('/', indexRouter);
 
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
 
 app.use(function(err, req, res, next) {
   res.locals.message = err.message;
